@@ -25,10 +25,8 @@ export const Content = styled.div`
       background: #232129;
       border-radius: 10px;
       border: 2px solid #232129;
-      padding: 16px;
       width: 100%;
       color: #f4ede8;
-      margin-top: 10px;
 
       &::placeholder {
         color: #666360;
