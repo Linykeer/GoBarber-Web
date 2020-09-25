@@ -6,12 +6,22 @@ import { useHistory } from 'react-router-dom'
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import { Form } from '@unform/web';
+
+import api from '../../services/api';
 import logoImg from '../../assets/sign-in-background.png';
 import logo from '../../assets/logo.svg';
 import { Container, Content, Background, AnimationContainer } from './styles';
+import { StringifyOptions } from 'querystring';
+
+interface SignUpFormData {
+  name: string;
+  email: string;
+  password: string;
+}
+
 const SignUp: React.FC = () => {
   const history = useHistory();
-  const handleSubmit = useCallback(async (data: object) => {
+  const handleSubmit = useCallback(async (data: SignUpFormData) => {
     try {
       const schema = Yup.object().shape({
         name: Yup.string().required('Nome Obrigatorio'),
@@ -25,6 +35,9 @@ const SignUp: React.FC = () => {
       await schema.validate(data, {
         abortEarly: false,
       });
+
+      await api.post('/users', data);
+
     } catch (err) {
       console.log(err);
     }
